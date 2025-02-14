@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url(bg\ view\ 2_waifu2x_photo_noise3.png);
+    background-size: cover;
+    background-position: center;
+    color: whitesmoke;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.50);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 20px auto;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.52);
+}
+
+h2 {
+    font-size: 24px;
+    color: #6dd5ed;
+    margin-bottom: 10px;
+}
+
+pre {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+/* Animasi Hover untuk Ikon Media Sosial */
+.medsos img {
+    width: 30px;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.medsos img:hover {
+    transform: scale(1.2) rotate(15deg);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+button {
+    background: #ff6f61;
+    color: whitesmoke;
+    border: none;
+    outline: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff9b85;
+}
+
+.profile-bottom {
+    background: rgba(0, 0, 0, 0.59);
+    font-size: 14px;
+    color: #ccc;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+/* Tampilan Audio yang Lebih Sederhana */
+.musik {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.musik audio {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.musik audio::-webkit-media-controls-panel {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+.musik audio::-webkit-media-controls-play-button {
+    background: #adadad;
+    border-radius: 50%;
+}
+
+.musik audio::-webkit-media-controls-timeline {
+    background: linear-gradient(90deg, #8f8b8b, #e3e1e1);
+    height: 2px;
+    border-radius: 25px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    pre {
+        font-size: 12px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
