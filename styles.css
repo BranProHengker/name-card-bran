@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -8,136 +6,319 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background-color: #121212;
     min-height: 100vh;
-    background-image: url(bg\ view\ 2_waifu2x_photo_noise3.png);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    color: #e0e0e0;
+}
+
+/* Background image with overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bg%20view%202_waifu2x_photo_noise3-DejxsCXspA5JLv6TcqMlqoA7JYBFF1.png');
     background-size: cover;
     background-position: center;
-    color: whitesmoke;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
 }
 
 .container {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.50);
+    z-index: 1;
+}
+
+.card {
+    background-color: rgba(30, 30, 30, 0.8);
     backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Menu and Settings Icons */
+.menu, .setting {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 10;
+    filter: invert(1);
+    opacity: 0.7;
+}
+
+.menu {
+    left: 15px;
+}
+
+.setting {
+    right: 15px;
+}
+
+.menu:hover, .setting:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
+
+/* Profile Section */
+.profile-section {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-image-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
 .profile {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 20px auto;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.52);
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
-h2 {
-    font-size: 24px;
-    color: #6dd5ed;
+.profile:hover {
+    transform: scale(1.05);
+    border-color: rgba(128, 128, 128, 0.5);
+}
+
+.music-toggle {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: #333;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    color: #aaa;
+}
+
+.music-toggle:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+.music-toggle.playing {
+    background-color: #555;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.music-icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-pre {
-    font-size: 14px;
-    color: #ccc;
+.bio {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Social Media Links */
+.medsos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.social-icon img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0.9);
+}
+
+.instagram {
+    background: linear-gradient(45deg, rgba(240, 148, 51, 0.8), rgba(230, 104, 60, 0.8), rgba(220, 39, 67, 0.8), rgba(204, 35, 102, 0.8), rgba(188, 24, 136, 0.8));
+}
+
+.youtube {
+    background-color: rgba(255, 0, 0, 0.8);
+}
+
+.tiktok {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Support Button */
+.tombol {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-/* Animasi Hover untuk Ikon Media Sosial */
-.medsos img {
-    width: 30px;
-    margin: 10px;
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.medsos img:hover {
-    transform: scale(1.2) rotate(15deg);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-}
-
-button {
-    background: #ff6f61;
-    color: whitesmoke;
+.tombol button {
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+    color: white;
     border: none;
-    outline: none;
-    padding: 12px 25px;
-    cursor: pointer;
+    padding: 12px 30px;
     border-radius: 30px;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-button:hover {
-    background-color: #ff9b85;
+.tombol button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(45deg, #34495e, #2c3e50);
 }
 
+.tombol button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Thank You Message */
 .profile-bottom {
-    background: rgba(0, 0, 0, 0.59);
-    font-size: 14px;
-    color: #ccc;
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+    color: #ddd;
     padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Tampilan Audio yang Lebih Sederhana */
+/* Audio Player */
 .musik {
-    margin-top: 20px;
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(40, 40, 40, 0.9);
+    color: #ddd;
+    padding: 15px 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.musik audio {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
+.toast.show {
+    opacity: 1;
 }
 
-.musik audio::-webkit-media-controls-panel {
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 5px;
+/* Glow effect for elements */
+@keyframes subtle-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
 }
 
-.musik audio::-webkit-media-controls-play-button {
-    background: #adadad;
-    border-radius: 50%;
-}
-
-.musik audio::-webkit-media-controls-timeline {
-    background: linear-gradient(90deg, #8f8b8b, #e3e1e1);
-    height: 2px;
-    border-radius: 25px;
+.profile {
+    animation: subtle-glow 3s infinite;
 }
 
 /* Responsive Design */
-@media (max-width: 600px) {
-    h2 {
-        font-size: 20px;
+@media (max-width: 480px) {
+    .profile {
+        width: 120px;
+        height: 120px;
     }
-
-    pre {
-        font-size: 12px;
+    
+    .name {
+        font-size: 24px;
     }
-
-    button {
-        padding: 10px 20px;
+    
+    .bio {
+        font-size: 14px;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-icon img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .tombol button {
+        padding: 10px 25px;
         font-size: 14px;
     }
 }
