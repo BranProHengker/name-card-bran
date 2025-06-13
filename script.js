@@ -134,3 +134,51 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.transform = 'translateY(-5px)';
     });
 });
+
+// Add to your script.js
+function typeWriter(element, text, speed = 50, startDelay = 500) {
+  setTimeout(() => {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    
+    type();
+  }, startDelay);
+}
+
+// Use it on your bio paragraphs
+const bioElements = document.querySelectorAll('.bio p');
+bioElements.forEach((el, index) => {
+  const originalText = el.textContent;
+  el.textContent = '';
+  typeWriter(el, originalText, 50, 1000 + (index * 1500));
+});
+
+
+// Add to your script.js
+const socialIcons = document.querySelectorAll('.social-icon');
+const tooltips = ['Instagram', 'YouTube', 'TikTok'];
+
+socialIcons.forEach((icon, index) => {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'social-tooltip';
+  tooltip.textContent = tooltips[index];
+  icon.appendChild(tooltip);
+});
+
+// Add to your script.js
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  
+  // Hide loading screen after all content is loaded
+  setTimeout(() => {
+    loadingScreen.classList.add('hidden');
+  }, 1500);
+});
