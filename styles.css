@@ -3,17 +3,54 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Dark Mode (Default) */
+html.dark-mode {
+    --bg-color: #121212;
+    --card-bg: rgba(30, 30, 30, 0.8);
+    --text-color: #e0e0e0;
+    --text-secondary: #aaa;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --button-gradient: linear-gradient(45deg, #2c3e50, #34495e);
+    --button-hover: linear-gradient(45deg, #34495e, #2c3e50);
+    --bottom-gradient: linear-gradient(45deg, #2c3e50, #34495e);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --toast-bg: rgba(40, 40, 40, 0.9);
+    --music-toggle-bg: #333;
+    --music-toggle-color: #aaa;
+    --music-active-bg: #555;
+    --music-active-color: #fff;
+}
+
+/* Light Mode */
+html.light-mode {
+    --bg-color: #f5f5f5;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-color: #333;
+    --text-secondary: #666;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --button-gradient: linear-gradient(45deg, #3498db, #2980b9);
+    --button-hover: linear-gradient(45deg, #2980b9, #3498db);
+    --bottom-gradient: linear-gradient(45deg, #3498db, #2980b9);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --toast-bg: rgba(255, 255, 255, 0.9);
+    --music-toggle-bg: #e0e0e0;
+    --music-toggle-color: #666;
+    --music-active-bg: #3498db;
+    --music-active-color: #fff;
 }
 
 body {
-    background-color: #121212;
+    background-color: var(--bg-color);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     position: relative;
-    color: #e0e0e0;
+    color: var(--text-color);
 }
 
 /* Background image with overlay */
@@ -29,6 +66,12 @@ body::before {
     background-position: center;
     background-repeat: no-repeat;
     z-index: -2;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+html.light-mode body::before {
+    opacity: 0.6; /* Make background lighter in light mode */
 }
 
 .background-overlay {
@@ -39,6 +82,11 @@ body::before {
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
     z-index: -1;
+    transition: background-color 0.5s;
+}
+
+html.light-mode .background-overlay {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .container {
@@ -48,27 +96,28 @@ body::before {
 }
 
 .card {
-    background-color: rgba(30, 30, 30, 0.8);
+    background-color: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px var(--shadow-color);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 15px 40px var(--shadow-color);
 }
 
-/* Menu and Settings Icons */
-.menu, .setting {
+/* Menu Icon */
+.menu {
     position: absolute;
     width: 25px;
     height: 25px;
     top: 15px;
+    left: 15px;
     cursor: pointer;
     transition: transform 0.3s ease;
     z-index: 10;
@@ -76,17 +125,63 @@ body::before {
     opacity: 0.7;
 }
 
-.menu {
-    left: 15px;
+html.light-mode .menu {
+    filter: invert(0);
 }
 
-.setting {
-    right: 15px;
-}
-
-.menu:hover, .setting:hover {
+.menu:hover {
     transform: scale(1.2);
     opacity: 1;
+}
+
+/* Theme Toggle Button (Replacing Settings Icon) */
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.2);
+}
+
+.moon-icon, .sun-icon {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s, transform 0.5s;
+}
+
+html.dark-mode .sun-icon {
+    opacity: 0;
+    position: absolute;
+    transform: rotate(90deg);
+}
+
+html.dark-mode .moon-icon {
+    opacity: 1;
+    transform: rotate(0);
+}
+
+html.light-mode .moon-icon {
+    opacity: 0;
+    position: absolute;
+    transform: rotate(-90deg);
+}
+
+html.light-mode .sun-icon {
+    opacity: 1;
+    transform: rotate(0);
 }
 
 /* Profile Section */
@@ -107,14 +202,13 @@ body::before {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 5px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 5px solid var(--border-color);
+    box-shadow: 0 5px 15px var(--shadow-color);
     transition: transform 0.3s ease;
 }
 
 .profile:hover {
     transform: scale(1.05);
-    border-color: rgba(128, 128, 128, 0.5);
 }
 
 .music-toggle {
@@ -123,25 +217,24 @@ body::before {
     right: 5px;
     width: 30px;
     height: 30px;
-    background-color: #333;
+    background-color: var(--music-toggle-bg);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px var(--shadow-color);
     transition: all 0.3s ease;
-    color: #aaa;
+    color: var(--music-toggle-color);
 }
 
 .music-toggle:hover {
-    background-color: #444;
-    color: #fff;
+    transform: scale(1.1);
 }
 
 .music-toggle.playing {
-    background-color: #555;
-    color: #fff;
+    background-color: var(--music-active-bg);
+    color: var(--music-active-color);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
@@ -153,15 +246,15 @@ body::before {
 .name {
     font-size: 28px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-color);
     margin-bottom: 10px;
     text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .bio {
     text-align: center;
-    color: #aaa;
+    color: var(--text-secondary);
     margin-bottom: 20px;
     line-height: 1.5;
 }
@@ -182,18 +275,16 @@ body::before {
     justify-content: center;
     align-items: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .social-icon:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .social-icon img {
     width: 30px;
     height: 30px;
-    filter: brightness(0.9);
 }
 
 .instagram {
@@ -217,7 +308,7 @@ body::before {
 }
 
 .tombol button {
-    background: linear-gradient(45deg, #2c3e50, #34495e);
+    background: var(--button-gradient);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -226,29 +317,29 @@ body::before {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px var(--shadow-color);
+    border: 1px solid var(--border-color);
 }
 
 .tombol button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
-    background: linear-gradient(45deg, #34495e, #2c3e50);
+    box-shadow: 0 6px 15px var(--shadow-color);
+    background: var(--button-hover);
 }
 
 .tombol button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 5px var(--shadow-color);
 }
 
 /* Thank You Message */
 .profile-bottom {
-    background: linear-gradient(45deg, #2c3e50, #34495e);
-    color: #ddd;
+    background: var(--bottom-gradient);
+    color: white;
     padding: 15px;
     text-align: center;
     font-size: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
 }
 
 /* Audio Player */
@@ -262,16 +353,16 @@ body::before {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(40, 40, 40, 0.9);
-    color: #ddd;
+    background-color: var(--toast-bg);
+    color: var(--text-color);
     padding: 15px 25px;
     border-radius: 10px;
     font-size: 16px;
     z-index: 1000;
     opacity: 0;
     transition: opacity 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .toast.show {
@@ -290,6 +381,20 @@ body::before {
 
 .profile {
     animation: subtle-glow 3s infinite;
+}
+
+/* Theme transition effect */
+.theme-transition {
+    animation: theme-fade 0.5s ease;
+}
+
+@keyframes theme-fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 /* Responsive Design */

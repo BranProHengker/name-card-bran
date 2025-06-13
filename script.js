@@ -13,7 +13,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const musicToggle = document.getElementById('musicToggle');
     const backgroundMusic = document.getElementById('backgroundMusic');
     const menuIcon = document.querySelector('.menu');
-    const settingIcon = document.querySelector('.setting');
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+        if (htmlElement.classList.contains('dark-mode')) {
+            // Switch to light mode
+            htmlElement.classList.remove('dark-mode');
+            htmlElement.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+            showToast('Light Mode Activated');
+        } else {
+            // Switch to dark mode
+            htmlElement.classList.remove('light-mode');
+            htmlElement.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            showToast('Dark Mode Activated');
+        }
+        
+        // Add transition effect
+        document.body.classList.add('theme-transition');
+        setTimeout(() => {
+            document.body.classList.remove('theme-transition');
+        }, 500);
+    });
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        htmlElement.classList.remove('dark-mode');
+        htmlElement.classList.add('light-mode');
+    }
     
     // Music toggle functionality
     let isPlaying = false;
@@ -77,11 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
         showToast('Menu coming soon!');
     });
     
-    // Settings icon click event
-    settingIcon.addEventListener('click', function() {
-        showToast('Settings coming soon!');
-    });
-    
     // Add hover effects to social media icons
     const socialIcons = document.querySelectorAll('.social-icon');
     socialIcons.forEach(icon => {
@@ -92,5 +118,19 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
         });
+    });
+    
+    // Add subtle animation to the card
+    const card = document.querySelector('.card');
+    
+    document.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth - 0.5;
+        const y = e.clientY / window.innerHeight - 0.5;
+        
+        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${y * -5}deg) translateY(-5px)`;
+    });
+    
+    document.addEventListener('mouseleave', function() {
+        card.style.transform = 'translateY(-5px)';
     });
 });
